@@ -118,6 +118,12 @@ uvicorn job_tracker.main:app --reload
 
 Open `http://127.0.0.1:8000/docs` for the interactive API documentation.
 
+### Environment and security
+
+Copy `.env.example` to `.env` for local configuration. Always replace `AUTH_SECRET_KEY` with a strong, randomly generated value before deploying. If no secret is supplied, the application generates an ephemeral secret at startup; this is intentionally safer than shipping a predictable hard-coded JWT secret, but it also invalidates existing tokens when the process restarts.
+
+Never commit `.env`, credentials, tokens, or production secrets to Git.
+
 ## Quality checks
 
 ```bash
