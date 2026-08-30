@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "job-application-tracker"
+version = "1.0.0"
+description = "A production-minded REST API for tracking job applications."
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [{name = "Milad Pourjamshid"}]
+dependencies = [
+  "alembic>=1.15,<2.0",
+  "fastapi>=0.115,<1.0",
+  "uvicorn[standard]>=0.34,<1.0",
+  "sqlalchemy>=2.0,<3.0",
+  "psycopg[binary]>=3.2,<4.0",
+  "pydantic-settings>=2.7,<3.0",
+  "email-validator>=2.2,<3.0",
+  "PyJWT>=2.10,<3.0",
+  "pwdlib[argon2]>=0.2,<1.0",
+  "python-multipart>=0.0.20,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.28,<1.0",
+  "pytest>=8.3,<9.0",
+  "pytest-cov>=6.0,<7.0",
+  "ruff>=0.11,<1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"alembic/env.py" = ["I001"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
